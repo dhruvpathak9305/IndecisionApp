@@ -1,3 +1,7 @@
+// Grab the add function from the add.js file in the utils folder
+// Grab React from the react npm module
+// add(2, 4)
+
 class IndecisionApp extends React.Component {
   constructor(props) {
     super(props);
@@ -6,12 +10,12 @@ class IndecisionApp extends React.Component {
     this.handleAddOption = this.handleAddOption.bind(this);
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
     this.state = {
-      options: [],
+      options: []
     };
   }
   componentDidMount() {
     try {
-      const json = localStorage.getItem("options");
+      const json = localStorage.getItem('options');
       const options = JSON.parse(json);
 
       if (options) {
@@ -24,18 +28,18 @@ class IndecisionApp extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.options.length !== this.state.options.length) {
       const json = JSON.stringify(this.state.options);
-      localStorage.setItem("options", json);
+      localStorage.setItem('options', json);
     }
   }
   componentWillUnmount() {
-    console.log("componentWillUnmount");
+    console.log('componentWillUnmount');
   }
   handleDeleteOptions() {
     this.setState(() => ({ options: [] }));
   }
   handleDeleteOption(optionToRemove) {
     this.setState((prevState) => ({
-      options: prevState.options.filter((option) => optionToRemove !== option),
+      options: prevState.options.filter((option) => optionToRemove !== option)
     }));
   }
   handlePick() {
@@ -45,17 +49,17 @@ class IndecisionApp extends React.Component {
   }
   handleAddOption(option) {
     if (!option) {
-      return "Enter valid value to add item";
+      return 'Enter valid value to add item';
     } else if (this.state.options.indexOf(option) > -1) {
-      return "This option already exists";
+      return 'This option already exists';
     }
 
     this.setState((prevState) => ({
-      options: prevState.options.concat(option),
+      options: prevState.options.concat(option)
     }));
   }
   render() {
-    const subtitle = "Put your life in the hands of a computer";
+    const subtitle = 'Put your life in the hands of a computer';
 
     return (
       <div>
@@ -69,7 +73,9 @@ class IndecisionApp extends React.Component {
           handleDeleteOptions={this.handleDeleteOptions}
           handleDeleteOption={this.handleDeleteOption}
         />
-        <AddOption handleAddOption={this.handleAddOption} />
+        <AddOption
+          handleAddOption={this.handleAddOption}
+        />
       </div>
     );
   }
@@ -85,13 +91,16 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {
-  title: "Indecision",
+  title: 'Indecision'
 };
 
 const Action = (props) => {
   return (
     <div>
-      <button onClick={props.handlePick} disabled={!props.hasOptions}>
+      <button
+        onClick={props.handlePick}
+        disabled={!props.hasOptions}
+      >
         What should I do?
       </button>
     </div>
@@ -102,16 +111,16 @@ const Options = (props) => {
   return (
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
-      {props.options.length === 0 && (
-        <p>Please add an option to get started!</p>
-      )}
-      {props.options.map((option) => (
-        <Option
-          key={option}
-          optionText={option}
-          handleDeleteOption={props.handleDeleteOption}
-        />
-      ))}
+      {props.options.length === 0 && <p>Please add an option to get started!</p>}
+      {
+        props.options.map((option) => (
+          <Option
+            key={option}
+            optionText={option}
+            handleDeleteOption={props.handleDeleteOption}
+          />
+        ))
+      }
     </div>
   );
 };
@@ -136,7 +145,7 @@ class AddOption extends React.Component {
     super(props);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
-      error: undefined,
+      error: undefined
     };
   }
   handleAddOption(e) {
@@ -148,7 +157,7 @@ class AddOption extends React.Component {
     this.setState(() => ({ error }));
 
     if (!error) {
-      e.target.elements.option.value = "";
+      e.target.elements.option.value = '';
     }
   }
   render() {
@@ -173,4 +182,4 @@ class AddOption extends React.Component {
 //   );
 // };
 
-ReactDOM.render(<IndecisionApp />, document.getElementById("app"));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));

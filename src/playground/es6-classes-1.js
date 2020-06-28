@@ -1,5 +1,5 @@
 class Person {
-  constructor(name = "Anonymous", age = 0) {
+  constructor(name = 'Anonymous', age = 0) {
     this.name = name;
     this.age = age;
   }
@@ -46,8 +46,8 @@ class Traveler extends Person {
   }
 }
 
-const me = new Traveler("Andrew Mead", 26, "Philadelphia");
+const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
 console.log(me.getGreeting());
 
-const other = new Traveler(undefined, undefined, "Nowhere");
+const other = new Traveler(undefined, undefined, 'Nowhere');
 console.log(other.getGreeting());
